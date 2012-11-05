@@ -31,6 +31,7 @@ public class PlayingFieldPanel extends JPanel implements Observer {
 
   public PlayingFieldPanel(Game game) {
     this.game = game;
+    this.setBackground(Color.GREEN); // new Color(0, 160, 55));
     ListenToMouseClick listener = new ListenToMouseClick();
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
@@ -38,12 +39,12 @@ public class PlayingFieldPanel extends JPanel implements Observer {
       unitImage = ImageIO.read(new File("images/Sponge.png"));
       flag = ImageIO.read(new File("images/flag.gif"));
       knight = ImageIO.read(new File("images/knight1.png"));
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
     setSize(Globals.WIDTH, Globals.HEIGHT);
-    this.setBackground(Color.GREEN); // new Color(0, 160, 55));
 
     //    setLayout(new GridLayout(ROWS, COLUMNS, 1, 1));
 
@@ -71,6 +72,7 @@ public class PlayingFieldPanel extends JPanel implements Observer {
               * Globals.WIDTH / Globals.TILE_SIZE, null);
       }
     }
+    this.setBackground(Color.GREEN); // new Color(0, 160, 55));
   }
 
   @Override
@@ -86,7 +88,6 @@ public class PlayingFieldPanel extends JPanel implements Observer {
     @Override
     public void mouseDragged(MouseEvent arg0) {
       // TODO Auto-generated method stub
-
     }
 
     @Override

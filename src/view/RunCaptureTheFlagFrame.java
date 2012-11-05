@@ -1,6 +1,9 @@
 package view;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.Game;
 import model.Globals;
@@ -19,20 +22,29 @@ public class RunCaptureTheFlagFrame extends JFrame {
   private Game game;
 
   public RunCaptureTheFlagFrame() {
-    setSize(Globals.WIDTH + 75, Globals.HEIGHT + 75);
-    setLocation(5, 5);
+    setSize(Globals.WIDTH + 200, Globals.HEIGHT + 200);
+    setLocation(10, 10);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setTitle("Capture the Flag");
 
     game = new Game();
     setUpGame();
+    // setLayout(null); 
+
+    JPanel p = new JPanel();
+    p.setBackground(Color.RED);
+    p.setSize(20, 20);
+    p.setLocation(45, 37);
+    add(p);
 
     playFieldPanel = new PlayingFieldPanel(game);
- 
+    playFieldPanel.setSize(500, 300);
+    playFieldPanel.setLocation(5, 3);
+
     game.addObserver(playFieldPanel);
 
-    playFieldPanel.setSize(PlayingFieldPanel.WIDTH, PlayingFieldPanel.HEIGHT);
-    playFieldPanel.setLocation(25, 25);
+//    playFieldPanel.setSize(PlayingFieldPanel.WIDTH, PlayingFieldPanel.HEIGHT);
+//    playFieldPanel.setLocation(25, 25);
     add(playFieldPanel);
   }
 
