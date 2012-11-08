@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import model.Game;
+import model.Board;
 import model.Globals;
 import model.Item;
 import model.Offender;
@@ -19,7 +19,7 @@ public class RunCaptureTheFlagFrame extends JFrame {
   }
 
   private PlayingFieldPanel playFieldPanel;
-  private Game game;
+  private Board board;
 
   public RunCaptureTheFlagFrame() {
     setSize(Globals.WIDTH + 200, Globals.HEIGHT + 200);
@@ -27,8 +27,13 @@ public class RunCaptureTheFlagFrame extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setTitle("Capture the Flag");
 
-    game = new Game();
-    setUpGame();
+    setLayout(null);
+    board = new Board();
+    setUpboard();
+
+    playFieldPanel = new PlayingFieldPanel(board);
+    playFieldPanel.setSize(Globals.WIDTH, Globals.HEIGHT);
+    playFieldPanel.setLocation(10, 13);
     // setLayout(null); 
 
     JPanel p = new JPanel();
@@ -48,11 +53,11 @@ public class RunCaptureTheFlagFrame extends JFrame {
     add(playFieldPanel);
   }
 
-  public void setUpGame() {
+  public void setUpboard() {
     Unit unit = new Offender("Bob");
-    game.set(1, 0, Item.HumanFlag);
-    game.set(Globals.ROWS / 2, Globals.COLUMNS - 2, Item.OpponentFlag);
-    game.set(2, 2, unit);
-    game.set(4, 4, Item.Bear);
+    board.set(1, 0, Item.HumanFlag);
+    board.set(Globals.ROWS / 2, Globals.COLUMNS - 2, Item.OpponentFlag);
+    board.set(2, 2, unit);
+    board.set(4, 4, Item.Bear);
   }
 }
