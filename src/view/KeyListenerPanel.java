@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,22 +16,35 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import model.Game;
 import model.Globals;
 
-public class PlayingFieldPanel extends JPanel implements Observer {
+public class KeyListenerPanel extends JPanel implements Observer {
+
+  public static void main(String[] args) {
+    JFrame frame = new JFrame();
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(600, 400);
+    frame.setLocation(20, 20);
+    frame.setLayout(null);
+
+    KeyListenerPanel panel = new KeyListenerPanel();
+    panel.setSize(500, 300);
+    panel.setLocation(50, 30);
+    
+    frame.getContentPane().add(panel);
+    frame.setVisible(true);
+  }
 
   private BufferedImage sprites;
   private Image flag;
-  private Game gmae;
+  private Game game;
 
-  // private JPanel[][] tiles;
-
-  public PlayingFieldPanel(Game board) {
-    this.gmae = board;
+  public KeyListenerPanel() {
     ListenToKeys listener = new ListenToKeys();
     this.addKeyListener(listener);
     try {
@@ -38,25 +52,36 @@ public class PlayingFieldPanel extends JPanel implements Observer {
       sprites = ImageIO.read(new File("images/megaman7.gif"));
     }
     catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    setBackground(color);
+   setBackground(Color.WHITE);
     animating = false;
     this.setSize(Globals.WIDTH, Globals.HEIGHT);
-    setFocusable(true);
+    this.setFocusable(true);
+    
+    p00 = new Polygon(); 
+    p00.addPoint(70, 10);
+    p00.addPoint(130, 10);
+    p00.addPoint(70, 70);
+    p00.addPoint(0, 70);
   }
+  
+  Polygon p00;
 
-  Graphics2D g2 = null;
   Color color = new Color(2, 165, 60);
 
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g2 = (Graphics2D) g;
+    Graphics2D g2 = (Graphics2D) g;
+    g2.setPaint(color);
+    g2.fill(p00);
+
+    g2.drawImage(flag, 20, 20, null);
+    
     if (animating) {
       BufferedImage sub = sprites.getSubimage(x, y, 55, 55);
-      g2.drawImage(sub, null, upperLeftX, upperLeftY);
+      g2.drawImage(sub, upperLeftX, upperLeftY, null);
     }
   }
 
@@ -91,8 +116,8 @@ public class PlayingFieldPanel extends JPanel implements Observer {
   }
 
   @Override
-  public void update(Observable theGame, Object arg1) {
-    gmae = (Game) theGame;
+  public void update(Observable theboard, Object arg1) {
+    game = (Game) theboard;
     repaint();
   }
 
@@ -101,11 +126,13 @@ public class PlayingFieldPanel extends JPanel implements Observer {
     @Override
     public void keyPressed(KeyEvent arg0) {
       // TODO Auto-generated method stub
+
     }
 
     @Override
     public void keyReleased(KeyEvent arg0) {
       // TODO Auto-generated method stub
+
     }
 
     @Override
@@ -114,6 +141,7 @@ public class PlayingFieldPanel extends JPanel implements Observer {
       char ch = key.getKeyChar();
       if (ch == 'a')
         animateAnAttack();
+
     }
   }
 }
