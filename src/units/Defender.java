@@ -1,11 +1,16 @@
 package units;
 
 import model.Globals;
-import model.Unit;
 
 public class Defender extends Unit {
 
-  public Defender(String name) {
-    super(name, Globals.DEFENDER_CALORIES);
+  public Defender(String name, String side) {
+    super(name, Globals.DEFENDER_CALORIES, side);
+  }
+
+  @Override
+  public char getLetterRepresentation() {
+    // TODO Auto-generated method stub
+    return 'D';
   }
 }

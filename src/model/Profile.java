@@ -3,6 +3,8 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+import units.Unit;
+
 public class Profile {
 
   private int gamesPlayed;

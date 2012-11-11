@@ -13,4 +13,8 @@ public class Globals {
   public static final int JAIL_FREER_CALORIES = 250;
   public static final int DEFENDER_CALORIES = 750;
   public static final int RUNNER_CALORIES = 1000;
+  
+  public static final String SIDE_LEFT = "Left";
+  public static final String SIDE_RIGHT = "Right";
+   
 }

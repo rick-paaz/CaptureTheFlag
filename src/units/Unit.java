@@ -1,9 +1,14 @@
-package model;
+package units;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Unit extends GamePiece {
+import model.GamePiece;
+import model.Globals;
+import model.NotOnSameSideException;
+import model.Reward;
+
+public abstract class Unit extends GamePiece {
 
   private int calories;
   private boolean tagged;
@@ -13,14 +18,17 @@ public class Unit extends GamePiece {
   private int challenges;
   private List<Reward> rewards;
   private int challengesWon;
+  private String side;
 
   /**
    * Construct a new Unit with all initial values.  Past things not remembered
    * @param name 
+   * @param Side TODO
    * @param strength The amount determined after the player has bought the strength
    */
-  public Unit(String name, int calories) {
+  public Unit(String name, int calories, String side) {
     super(name);
+    this.side = side;
     setStrength(calories);
     setTagged(false);
     bandanas = 1;
@@ -55,7 +63,7 @@ public class Unit extends GamePiece {
    * @throws NotOnSameSideException
    */
   public void challenge(Unit other) throws NotOnSameSideException {
-    if (getName().equalsIgnoreCase(other.getName()))
+    if (this.side.equalsIgnoreCase(other.side))
       throw new NotOnSameSideException();
 
     // One challenge mean two Units are involved 
@@ -71,7 +79,8 @@ public class Unit extends GamePiece {
     }
 
     if (other.getCalories() < getCalories()) {
-      other.setStrength(other.getCalories() - Globals.CALORIE_LOSS_PER_CHALLENGE);
+      other.setStrength(other.getCalories()
+          - Globals.CALORIE_LOSS_PER_CHALLENGE);
       if (this.canTakeBandanaFrom(other)) {
         other.removeBandana();
         addToChallengesWon();
@@ -142,4 +151,7 @@ public class Unit extends GamePiece {
     return this.rewards;
   }
 
+  public String getSide() {
+    return this.side;
+  }
 }

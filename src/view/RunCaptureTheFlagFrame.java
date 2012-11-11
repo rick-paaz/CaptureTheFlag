@@ -8,10 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import units.Runner;
+import units.Unit;
 
 import model.Game;
 import model.Globals;
-import model.Unit;
 
 public class RunCaptureTheFlagFrame extends JFrame {
 

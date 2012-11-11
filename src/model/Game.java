@@ -39,6 +39,6 @@ public class Game extends Observable {
 
   private boolean outOfRange(int row, int column) {
     return row < 0 || column < 0 || column >= Globals.COLUMNS
-        || row >= -Globals.ROWS;
+        || row >= Globals.ROWS;
   }
 }

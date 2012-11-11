@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import model.GamePiece;
 
-public class Item extends GamePiece {
+public abstract class Item extends GamePiece {
 
   protected BufferedImage myImage;
 
@@ -31,4 +31,5 @@ public class Item extends GamePiece {
   public BufferedImage getImage() {
     return myImage;
   }
+
 }

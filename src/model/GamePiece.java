@@ -1,6 +1,6 @@
 package model;
 
-public class GamePiece {
+public abstract class GamePiece {
 
   private String name;
   protected int row, column;
@@ -8,6 +8,8 @@ public class GamePiece {
   public GamePiece(String name) {
     this.name = name;
   }
+  
+  public abstract char getLetterRepresentation();
 
   /**
    * Access to the name of this unit that is used to ensure 

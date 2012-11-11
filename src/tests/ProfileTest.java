@@ -7,9 +7,10 @@ import java.util.List;
 import model.Globals;
 import model.Profile;
 import model.Reward;
-import model.Unit;
 
 import org.junit.Test;
+
+import units.Unit;
 
 public class ProfileTest {
 
