@@ -1,14 +1,16 @@
 package view;
 
+import items.Item;
+
 import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import units.Runner;
+
 import model.Game;
 import model.Globals;
-import model.Item;
-import model.Offender;
 import model.Unit;
 
 public class RunCaptureTheFlagFrame extends JFrame {
@@ -29,8 +31,7 @@ public class RunCaptureTheFlagFrame extends JFrame {
 
     setLayout(null);
     game = new Game();
-    setUpboard();
-
+    
     playFieldPanel = new PlayingFieldPanel(game);
     playFieldPanel.setSize(Globals.WIDTH, Globals.HEIGHT);
     playFieldPanel.setLocation(10, 13);
@@ -53,11 +54,4 @@ public class RunCaptureTheFlagFrame extends JFrame {
     add(playFieldPanel);
   }
 
-  public void setUpboard() {
-    Unit unit = new Offender("Bob");
-    game.set(1, 0, Item.HumanFlag);
-    game.set(Globals.ROWS / 2, Globals.COLUMNS - 2, Item.OpponentFlag);
-    game.set(2, 2, unit);
-    game.set(4, 4, Item.Bear);
-  }
 }

@@ -1,44 +1,36 @@
 package model;
 
-public class Unit {
+import java.util.ArrayList;
+import java.util.List;
 
-  private String name;
+public class Unit extends GamePiece {
+
   private int calories;
   private boolean tagged;
   private boolean inJail;
   private int bandanas;
-  private Profile profile;
-  private int row, column;
+  // private Profile profile;
+  private int challenges;
+  private List<Reward> rewards;
+  private int challengesWon;
 
   /**
    * Construct a new Unit with all initial values.  Past things not remembered
    * @param name 
    * @param strength The amount determined after the player has bought the strength
    */
-  public Unit(String name, int strength) {
-    setStrength(strength);
+  public Unit(String name, int calories) {
+    super(name);
+    setStrength(calories);
     setTagged(false);
-    this.name = name;
     bandanas = 1;
-    profile = new Profile();
+    //  profile = new Profile();
     setInJail(false);
     column = -1;
     row = -1;
-  }
-
-  public void setPosition(int row, int column) throws IllegalArgumentException {
-    if(row < 0 || column < 0 || row >= Globals.ROWS ||  column >= Globals.COLUMNS)
-      throw new IllegalArgumentException();
-    this.row = row;
-    this.column = column;
-  }
-
-  public int getRow() {
-    return row;
-  }
-
-  public int getColumn() {
-    return column;
+    challenges = 0;
+    challengesWon = 0;
+    rewards = new ArrayList<Reward>();
   }
 
   /**
@@ -67,34 +59,24 @@ public class Unit {
       throw new NotOnSameSideException();
 
     // One challenge mean two Units are involved 
-    this.profile.addToChallengesInvolvedIn();
-    other.getProfile().addToChallengesInvolvedIn();
+    addToChallengesInvolvedIn();
+    other.addToChallengesInvolvedIn();
 
     if (getCalories() < other.getCalories()) {
-      this.setStrength(this.getCalories() - Globals.CALORIE_LOSS);
+      this.setStrength(this.getCalories() - Globals.CALORIE_LOSS_PER_CHALLENGE);
       if (other.canTakeBandanaFrom(this)) {
-        other.getProfile().addToChallengesWon();
+        other.addToChallengesWon();
         this.removeBandana();
       }
     }
 
     if (other.getCalories() < getCalories()) {
-      other.setStrength(other.getCalories() - Globals.CALORIE_LOSS);
+      other.setStrength(other.getCalories() - Globals.CALORIE_LOSS_PER_CHALLENGE);
       if (this.canTakeBandanaFrom(other)) {
         other.removeBandana();
-        this.profile.addToChallengesWon();
+        addToChallengesWon();
       }
     }
-  }
-
-  /**
-   * Access to the name of this unit that is used to ensure 
-   * different sides are challenging each other.
-   * 
-   * @return This units name
-   */
-  public String getName() {
-    return name;
   }
 
   public int getBandanaCount() {
@@ -132,7 +114,32 @@ public class Unit {
       tagged = true;
   }
 
-  public Profile getProfile() {
-    return profile;
+  public int numberOfRewards() {
+    return rewards.size();
   }
+
+  public void addToChallengesInvolvedIn() {
+    challenges++;
+  }
+
+  public int challengesInvolvedIn() {
+    return challenges;
+  }
+
+  public void addToChallengesWon() {
+    challengesWon++;
+    // TODO:  checkForReward needs management.  When do we add a 2nd or 3rd
+    // At some point, a Reward will be taken by this Unit, what then ?????
+    if (challengesWon() >= Globals.WINS_FOR_REWARD)
+      rewards.add(Reward.JUMPS_WALLS);
+  }
+
+  public int challengesWon() {
+    return challengesWon;
+  }
+
+  public List<Reward> getRewards() {
+    return this.rewards;
+  }
+
 }

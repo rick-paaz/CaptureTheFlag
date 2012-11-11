@@ -1,4 +1,7 @@
-package model;
+package units;
+
+import model.Globals;
+import model.Unit;
 
 public class Defender extends Unit {
 

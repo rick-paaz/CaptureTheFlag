@@ -1,47 +1,34 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
 
 public class Profile {
 
-  private int challenges;
-  private List<Reward> rewards;
-  private int challengesWon;
+  private int gamesPlayed;
+  private int gamesWon;
+  private List<Unit> myUnits;
 
   public Profile() {
-    challenges = 0;
-    challengesWon = 0;
-    rewards = new ArrayList<Reward>();
+    setGamesPlayed(0);
+    setGamesWon(0);
+    myUnits = new LinkedList<Unit>();
   }
 
-  public int numberOfRewards() {
-    return rewards.size();
+  public int getGamesPlayed() {
+    return gamesPlayed;
   }
 
-  public void addToChallengesInvolvedIn() {
-    challenges++;
+  public void setGamesPlayed(int gamesPlayed) {
+    this.gamesPlayed = gamesPlayed;
   }
 
-  public int challengesInvolvedIn() {
-    return challenges;
+  public int getGamesWon() {
+    return gamesWon;
   }
 
-  public void addToChallengesWon() {
-    challengesWon++;
-    // TODO:  checkForReward needs management.  When do we add a 2nd or 3rd
-    // At some point, a Reward will be taken by this Unit, what then ?????
-    if (challengesWon() >= Globals.WINS_FOR_REWARD)
-      rewards.add(Reward.JUMPS_WALLS);
-  }
-
-  public int challengesWon() {
-    return challengesWon;
-  }
-
-  public List<Reward> getRewards() {
-    return this.rewards;
+  public void setGamesWon(int gamesWon) {
+    this.gamesWon = gamesWon;
   }
 
 }
