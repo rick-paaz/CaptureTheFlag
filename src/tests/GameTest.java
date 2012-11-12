@@ -32,7 +32,7 @@ public class GameTest {
     game.addPiece(player1, 2, Globals.COLUMNS - 3);
     game.addPiece(player2, 4, Globals.COLUMNS - 2);
     game.addPiece(player3, 3, Globals.COLUMNS - 1);
-
+    
     Unit uA = game.getUnit(2, 2);
     assertEquals(Globals.RUNNER_CALORIES, uA.getCalories());
     game.moveUnit(2, 2, 2, 3);
@@ -44,22 +44,46 @@ public class GameTest {
     assertEquals(Globals.RUNNER_CALORIES - 2 * Globals.RUNNER__MOVE_COST,
         uA.getCalories());
     game.moveUnit(2, 6, 2, 5);
-
-    System.out.println(game);
-
+    
+    assertEquals(960, game.getUnit(2, 4).getCalories());
+    assertEquals(960, game.getUnit(2, 5).getCalories());
+    
     Unit attacker = game.getUnit(2, 4);
     Unit other = game.getUnit(2, 5);
     attacker.challenge(other);
     
-    assertEquals(Globals.RUNNER_CALORIES - 2*  Globals.RUNNER__MOVE_COST,
-        uA.getCalories() - Globals.CALORIE_LOSS_PER_CHALLENGE);
+    assertEquals(game.getUnit(2, 4).getCalories(), game.getUnit(2, 5).getCalories());
+    
+    game.moveUnit(2, 5, 1, 5);
+    game.moveUnit(1, 5, 2, 5);
+    
+    assertEquals(920, game.getUnit(2, 5).getCalories());
 
+    
+    game.moveUnit(3, 0, 2, 0);
+    assertEquals(245, game.getUnit(2, 0).getCalories());
 
-    //   game.addPiece(new HumanFlag("images\flag.png"));
-
-    //    game.setLocation(1, 0, new USA.gif());
-    //    game.set(Globals.ROWS / 2, Globals.COLUMNS - 2, Item.OpponentFlag);
-    //    game.set(2, 2, unit);
-    //    game.set(4, 4, new BearTrap("images\bananas.png"));
+    game.moveUnit(4, 1, 5, 2);
+    assertEquals(738, game.getUnit(5, 2).getCalories());
+  }
+  
+  @Test
+  public void testGetPieceInChallange() {
+    Game game = new Game();
+    
+    Unit human1 = new Runner("h1", Globals.SIDE_LEFT);
+    game.addPiece(human1, 4, 2);
+    
+    Unit p2 = new Defender("p2", Globals.SIDE_RIGHT);
+    game.addPiece(p2, 3, 2);
+ 
+    assertEquals(Globals.RUNNER_CALORIES , human1.getCalories());
+    
+    Unit attack = game.getUnit(4, 2);
+    Unit defend = game.getUnit(3, 2);
+    
+    attack.challenge(defend);
+    
+    assertEquals(Globals.DEFENDER_CALORIES - Globals.CALORIE_LOSS_PER_CHALLENGE , p2.getCalories());
   }
 }
