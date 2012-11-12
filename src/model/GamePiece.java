@@ -12,8 +12,8 @@ public abstract class GamePiece {
   public abstract char getLetterRepresentation();
 
   /**
-   * Access to the name of this unit that is used to ensure 
-   * different sides are challenging each other.
+   * Access to the name of this unit that is used to ensure different sides are
+   * challenging each other.
    * 
    * @return This units name
    */

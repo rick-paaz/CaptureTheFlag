@@ -8,7 +8,7 @@ public class ProfileTest {
 
  
   @Test public void testProfile() {
-    Profile2 p = new Profile2();
+   // Profile2 p = new Profile2();
     
   }
 }

@@ -3,6 +3,7 @@ package units;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.CannotChallengeException;
 import model.GamePiece;
 import model.Globals;
 import model.NotOnSameSideException;
@@ -20,10 +21,13 @@ public abstract class Unit extends GamePiece {
   private String side;
 
   /**
-   * Construct a new Unit with all initial values.  Past things not remembered
-   * @param name 
-   * @param Side TODO
-   * @param strength The amount determined after the player has bought the strength
+   * Construct a new Unit with all initial values. Past things not remembered
+   * 
+   * @param name
+   * @param Side
+   *          TODO
+   * @param strength
+   *          The amount determined after the player has bought the strength
    */
   public Unit(String name, int calories, String side) {
     super(name);
@@ -31,7 +35,7 @@ public abstract class Unit extends GamePiece {
     setStrength(calories);
     setTagged(false);
     bandanas = 1;
-    //  profile = new Profile();
+    // profile = new Profile();
     setInJail(false);
     column = -1;
     row = -1;
@@ -39,11 +43,11 @@ public abstract class Unit extends GamePiece {
     challengesWon = 0;
     rewards = new ArrayList<Reward>();
   }
-  
 
   /**
    * How much does this unit have remaining
-   * @return The current strength. 
+   * 
+   * @return The current strength.
    */
   public int getCalories() {
     return calories;
@@ -51,7 +55,9 @@ public abstract class Unit extends GamePiece {
 
   /**
    * This can change during a battle
-   * @param strength Perhaps the current strength - whatever can get lost.
+   * 
+   * @param strength
+   *          Perhaps the current strength - whatever can get lost.
    */
   public void setStrength(int strength) {
     this.calories = strength;
@@ -59,16 +65,19 @@ public abstract class Unit extends GamePiece {
 
   /**
    * Allow two units to battle each other if they are in the same side.
-   * @param other The unit being fought
+   * 
+   * @param other
+   *          The unit being fought
    * @throws NotOnSameSideException
    */
   public void challenge(Unit other) throws NotOnSameSideException {
     if (this.side.equalsIgnoreCase(other.side))
       throw new NotOnSameSideException();
-    
- 
 
-    // One challenge mean two Units are involved 
+    if (set(this, other) &&canNotChallangeinRange(this, other))
+      throw new CannotChallengeException();
+
+    // One challenge mean two Units are involved
     addToChallengesInvolvedIn();
     other.addToChallengesInvolvedIn();
 
@@ -88,6 +97,15 @@ public abstract class Unit extends GamePiece {
         addToChallengesWon();
       }
     }
+  }
+
+  private boolean set(Unit unit, Unit other) {
+    return unit.getRow() != -1 && other.getRow() != -1;
+  }
+
+  private boolean canNotChallangeinRange(Unit unit, Unit other) {
+    return Math.abs(unit.getRow() - other.getRow()) > 1
+        || Math.abs(unit.getColumn() - other.getColumn()) > 1;
   }
 
   public int getBandanaCount() {
@@ -112,6 +130,7 @@ public abstract class Unit extends GamePiece {
 
   /**
    * Return true if this Unit has at least twice as many calories as other
+   * 
    * @param uB
    * @return
    */
@@ -139,7 +158,7 @@ public abstract class Unit extends GamePiece {
 
   public void addToChallengesWon() {
     challengesWon++;
-    // TODO:  checkForReward needs management.  When do we add a 2nd or 3rd
+    // TODO: checkForReward needs management. When do we add a 2nd or 3rd
     // At some point, a Reward will be taken by this Unit, what then ?????
     if (challengesWon() >= Globals.WINS_FOR_REWARD)
       rewards.add(Reward.JUMPS_WALLS);
@@ -156,6 +175,6 @@ public abstract class Unit extends GamePiece {
   public String getSide() {
     return this.side;
   }
-  
+
   public abstract void chargeOneMoveCost();
 }
