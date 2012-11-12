@@ -65,6 +65,8 @@ public abstract class Unit extends GamePiece {
   public void challenge(Unit other) throws NotOnSameSideException {
     if (this.side.equalsIgnoreCase(other.side))
       throw new NotOnSameSideException();
+    
+ 
 
     // One challenge mean two Units are involved 
     addToChallengesInvolvedIn();

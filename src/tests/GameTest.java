@@ -86,4 +86,32 @@ public class GameTest {
     
     assertEquals(Globals.DEFENDER_CALORIES - Globals.CALORIE_LOSS_PER_CHALLENGE , p2.getCalories());
   }
+
+  
+  @Test
+  public void testUnitKnowPositionAfteSetAndMoveTo() {
+    Game game = new Game();
+    
+    Unit human1 = new Runner("h1", Globals.SIDE_LEFT);
+    game.addPiece(human1, 4, 2);
+    
+    Unit p2 = new Defender("p2", Globals.SIDE_RIGHT);
+    game.addPiece(p2, 3, 2);
+ 
+    assertEquals(4, human1.getRow());
+    assertEquals(2, human1.getColumn());
+    assertEquals(3, p2.getRow());
+    assertEquals(2, p2.getColumn());
+    
+    game.moveUnit(4, 2, 5, 3);
+    game.moveUnit(3, 2, 2, 3);
+    
+    assertEquals(5, human1.getRow());
+    assertEquals(3, human1.getColumn());   
+    assertEquals(2, p2.getRow());
+    assertEquals(3, p2.getColumn());
+   
+    
+  }
 }
+  

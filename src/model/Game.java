@@ -12,18 +12,17 @@ public class Game extends Observable {
     field = new GamePiece[Globals.ROWS][Globals.COLUMNS];
   }
 
-  public void set(int row, int column, GamePiece gamePiece) {
-    if (gamePiece == null)
-      throw new IllegalArgumentException();
-    field[row][column] = gamePiece;
-  }
-
+ 
+  // Also update the gamePiece location
   public void moveUnit(int fromRow, int fromColumn, int toRow, int toColumn) {
     if (outOfRange(fromRow, fromColumn) || outOfRange(toRow, toColumn))
       throw new IllegalArgumentException();
 
     field[toRow][toColumn] = field[fromRow][fromColumn];
     field[fromRow][fromColumn] = null;
+    
+    field[toRow][toColumn].setPosition(toRow, toColumn);
+ 
     
     ((Unit)field[toRow][toColumn]).chargeOneMoveCost();
     
@@ -35,9 +34,14 @@ public class Game extends Observable {
     return (Unit)field[row][column];
   }
 
+  // Also update the gamePiece location if the gemPiece is a unit
+  
   public void addPiece(GamePiece gamePiece, int row, int column) {
     if (outOfRange(row, column) || field[row][column] != null)
       throw new IllegalArgumentException();
+    
+    if(gamePiece instanceof Unit)
+    	gamePiece.setPosition(row, column);
 
     field[row][column] = gamePiece;
   }
