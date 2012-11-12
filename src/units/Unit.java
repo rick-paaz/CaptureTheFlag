@@ -6,7 +6,6 @@ import java.util.List;
 import model.GamePiece;
 import model.Globals;
 import model.NotOnSameSideException;
-import model.Reward;
 
 public abstract class Unit extends GamePiece {
 
@@ -40,6 +39,7 @@ public abstract class Unit extends GamePiece {
     challengesWon = 0;
     rewards = new ArrayList<Reward>();
   }
+  
 
   /**
    * How much does this unit have remaining
@@ -154,4 +154,6 @@ public abstract class Unit extends GamePiece {
   public String getSide() {
     return this.side;
   }
+  
+  public abstract void chargeOneMoveCost();
 }

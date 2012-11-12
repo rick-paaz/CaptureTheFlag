@@ -1,7 +1,8 @@
 package items;
 
-import java.awt.image.BufferedImage;
-
+/**
+ * @author mercer
+ */
 
 public class HumanFlag extends Item {
 

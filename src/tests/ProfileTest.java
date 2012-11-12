@@ -6,10 +6,10 @@ import java.util.List;
 
 import model.Globals;
 import model.Profile;
-import model.Reward;
 
 import org.junit.Test;
 
+import units.Reward;
 import units.Unit;
 
 public class ProfileTest {

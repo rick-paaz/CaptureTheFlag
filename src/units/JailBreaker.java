@@ -12,4 +12,10 @@ public class JailBreaker extends Unit {
   public char getLetterRepresentation() {
     return 'J';
   }
+  
+  @Override
+  public void chargeOneMoveCost() {
+    int currentCalories = this.getCalories();
+    setStrength(currentCalories - Globals.JAIL_FREER_MOVE_COST);
+  }
 }

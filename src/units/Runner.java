@@ -13,4 +13,10 @@ public class Runner extends Unit {
     // TODO Auto-generated method stub
     return 'R';
   }
+
+  @Override
+  public void chargeOneMoveCost() {
+    int currentCalories = this.getCalories();
+    setStrength(currentCalories - Globals.RUNNER__MOVE_COST);
+  }
 }

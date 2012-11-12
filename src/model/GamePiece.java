@@ -8,7 +8,7 @@ public abstract class GamePiece {
   public GamePiece(String name) {
     this.name = name;
   }
-  
+
   public abstract char getLetterRepresentation();
 
   /**

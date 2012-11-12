@@ -2,6 +2,8 @@ package model;
 
 import java.util.Observable;
 
+import units.Unit;
+
 public class Game extends Observable {
 
   private GamePiece[][] field;
@@ -22,12 +24,15 @@ public class Game extends Observable {
 
     field[toRow][toColumn] = field[fromRow][fromColumn];
     field[fromRow][fromColumn] = null;
+    
+    ((Unit)field[toRow][toColumn]).chargeOneMoveCost();
+    
     setChanged();
     notifyObservers();
   }
 
-  public Object getSprite(int row, int column) {
-    return field[row][column];
+  public Unit getUnit(int row, int column) {
+    return (Unit)field[row][column];
   }
 
   public void addPiece(GamePiece gamePiece, int row, int column) {
@@ -40,5 +45,28 @@ public class Game extends Observable {
   private boolean outOfRange(int row, int column) {
     return row < 0 || column < 0 || column >= Globals.COLUMNS
         || row >= Globals.ROWS;
+  }
+
+  public String toString() {
+    String result = "";
+    for (int r = 0; r < Globals.ROWS; r++) {
+      for (int c = 0; c < Globals.COLUMNS; c++) {
+        
+        String sideLetter = " ";
+        Object o = field[r][c];
+        if( o instanceof Unit) {
+        if(((Unit)field[r][c]).getSide().equals(Globals.SIDE_LEFT))
+            sideLetter = "l";
+        else
+          sideLetter = "r";
+        }
+        if (field[r][c] == null)
+          result += " . ";
+        else
+          result += sideLetter+ field[r][c].getLetterRepresentation() + " ";
+      }
+      result += "\n";
+    }
+    return result;
   }
 }

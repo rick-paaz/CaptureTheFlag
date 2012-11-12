@@ -18,12 +18,12 @@ import java.util.List;
 import model.Globals;
 import model.NotOnSameSideException;
 import model.Profile;
-import model.Reward;
 
 import org.junit.Test;
 
 import units.Defender;
 import units.JailBreaker;
+import units.Reward;
 import units.Runner;
 import units.Unit;
 

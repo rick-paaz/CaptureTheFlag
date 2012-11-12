@@ -13,4 +13,10 @@ public class Defender extends Unit {
     // TODO Auto-generated method stub
     return 'D';
   }
+
+  @Override
+  public void chargeOneMoveCost() {
+    int currentCalories = this.getCalories();
+    setStrength(currentCalories - Globals.DEFENDER__MOVE_COST);
+  }
 }
