@@ -25,12 +25,12 @@ public class PlayingFieldPanel extends JPanel implements Observer {
 
   private BufferedImage sprites;
   private Image flag;
-  private Game gmae;
+  private Game game;
 
   // private JPanel[][] tiles;
 
   public PlayingFieldPanel(Game board) {
-    this.gmae = board;
+    this.game = board;
     ListenToKeys listener = new ListenToKeys();
     this.addKeyListener(listener);
     try {
@@ -92,7 +92,7 @@ public class PlayingFieldPanel extends JPanel implements Observer {
 
   @Override
   public void update(Observable theGame, Object arg1) {
-    gmae = (Game) theGame;
+    game = (Game) theGame;
     repaint();
   }
 

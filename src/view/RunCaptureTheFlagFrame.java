@@ -1,14 +1,9 @@
 package view;
 
-import items.Item;
-
 import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import units.Runner;
-import units.Unit;
 
 import model.Game;
 import model.Globals;

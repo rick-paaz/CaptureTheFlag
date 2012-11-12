@@ -15,6 +15,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import model.CannotChallengeException;
+import model.Game;
 import model.Globals;
 import model.NotOnSameSideException;
 
@@ -76,6 +78,29 @@ public class UnitTest {
     Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
     uA.setPosition(-1, 2);
   }
+
+  @Test(expected = CannotChallengeException.class)
+  public void testChallenge() {
+    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uB = new Runner("Bob", Globals.SIDE_RIGHT);
+    Game g = new Game();
+    g.addPiece(uA, 2, 2);
+    g.addPiece(uB, 4, 2);
+    
+    uA.challenge(uB);
+  }
+  
+  @Test(expected = CannotChallengeException.class)
+  public void testChallenge2() {
+    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uB = new Runner("Bob", Globals.SIDE_RIGHT);
+    Game g = new Game();
+    g.addPiece(uA, 3, 4);
+    g.addPiece(uB, 4, 2);
+    
+    uA.challenge(uB);
+  }
+
 
   @Test(expected = IllegalArgumentException.class)
   public void testPositionThrowsExceptionColumn() {
@@ -142,12 +167,11 @@ public class UnitTest {
   }
 
   /**
-   * Try to have one unit take a bandana from another where 
-   * both begin with 2 flags, but uA has more calories and
-   * should eventually get a bandana.
+   * Try to have one unit take a bandana from another where both begin with 2
+   * flags, but uA has more calories and should eventually get a bandana.
    * 
-   * Current plan is to have one take another bandana when
-   * one has twice as many calories (or the other has only half)
+   * Current plan is to have one take another bandana when one has twice as many
+   * calories (or the other has only half)
    */
   @Test
   public void testOneUnitGetsAnothersFlag() {
@@ -158,14 +182,14 @@ public class UnitTest {
 
     uA.setStrength(intialCaloriesOfA);
     uB.setStrength(intialCaloriesOfB);
-    
+
     // Sanity check
     assertEquals(1, uA.getBandanaCount());
     assertEquals(1, uB.getBandanaCount());
 
     // Let uA battle uB until uA removes 1 flag from uB.
     // Current thought is to have uA must with twice the
-    // calories for a flag take.  
+    // calories for a flag take.
     uA.challenge(uB);
     assertEquals(intialCaloriesOfA, uA.getCalories());
     assertEquals(intialCaloriesOfB - Globals.CALORIE_LOSS_PER_CHALLENGE,
@@ -271,10 +295,10 @@ public class UnitTest {
 
   @Test
   public void testIsTaggedWhenChallengerIsReversedTheReceiverThatIs() {
-    Unit uA = new Runner("A", Globals.SIDE_RIGHT);
-    Unit second = new Runner("B", Globals.SIDE_LEFT);
-    Unit third = new Runner("C", Globals.SIDE_LEFT);
-    Unit fourth = new Runner("D", Globals.SIDE_LEFT);
+    Unit uA = new Runner("A", Globals.SIDE_LEFT);
+    Unit second = new Runner("B", Globals.SIDE_RIGHT);
+    Unit third = new Runner("C", Globals.SIDE_RIGHT);
+    Unit fourth = new Runner("D", Globals.SIDE_RIGHT);
 
     uA.setStrength(6 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     second.setStrength(4 * Globals.CALORIE_LOSS_PER_CHALLENGE);
@@ -303,7 +327,7 @@ public class UnitTest {
 
   @Test
   public void testWinsRecordedInTheProfile() {
-    // A will always take a bandana 
+    // A will always take a bandana
     Unit uA = new Runner("A", Globals.SIDE_RIGHT);
     Unit other = new Runner("B", Globals.SIDE_LEFT);
 
@@ -361,10 +385,11 @@ public class UnitTest {
     Unit other = null;
     for (int wins = 1; wins <= Globals.WINS_FOR_REWARD - 1; wins++) {
       // Each new B will always be tagged with only one challenge
-      // because that will make B have half to calories of A3 * Globals.CALORIE_LOSS_PER_CHALLENGE,
+      // because that will make B have half to calories of A3 *
+      // Globals.CALORIE_LOSS_PER_CHALLENGE,
       other = new Runner("B", Globals.SIDE_RIGHT);
       other.setStrength(3 * Globals.CALORIE_LOSS_PER_CHALLENGE);
-      
+
       assertFalse(other.isTagged());
       uA.challenge(other); // should win with only one challenge
       assertTrue(other.isTagged());
@@ -398,7 +423,7 @@ public class UnitTest {
     Unit uA = new Runner("A", Globals.SIDE_LEFT);
     uA.setStrength(2000 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     Unit other = null;
-    // Almost get a reward for 
+    // Almost get a reward for
     for (int wins = 1; wins <= Globals.WINS_FOR_REWARD - 1; wins++) {
       other = new Runner("B", Globals.SIDE_RIGHT);
       other.setStrength(1000 * Globals.CALORIE_LOSS_PER_CHALLENGE);
@@ -446,9 +471,9 @@ public class UnitTest {
   }
 
   /**
-   * The Rewards will probably never be fully implemented
-   * The cheap version is the Unit's profile adds an Award
-   * when the Unit has won (taken a bandana) 10 times
+   * The Rewards will probably never be fully implemented The cheap version is
+   * the Unit's profile adds an Award when the Unit has won (taken a bandana) 10
+   * times
    */
   @Test
   public void testAwardGiven() {
