@@ -17,7 +17,6 @@ import java.util.List;
 
 import model.Globals;
 import model.NotOnSameSideException;
-import model.Profile;
 
 import org.junit.Test;
 

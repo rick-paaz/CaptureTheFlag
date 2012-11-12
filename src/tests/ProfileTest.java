@@ -1,18 +1,14 @@
 package tests;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
-import model.Globals;
-import model.Profile;
+import model.Profile2;
 
 import org.junit.Test;
-
-import units.Reward;
-import units.Unit;
 
 public class ProfileTest {
 
  
+  @Test public void testProfile() {
+    Profile2 p = new Profile2();
+    
+  }
 }
