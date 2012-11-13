@@ -18,14 +18,13 @@ import java.util.List;
 import model.CannotChallengeException;
 import model.Game;
 import model.Globals;
-import model.NotOnSameSideException;
 
 import org.junit.Test;
 
 import units.Defender;
 import units.JailBreaker;
 import units.Reward;
-import units.Runner;
+import units.Offensive;
 import units.Unit;
 
 public class UnitTest {
@@ -36,17 +35,20 @@ public class UnitTest {
     assertEquals(Globals.DEFENDER_CALORIES, uA.getCalories());
     assertEquals(1, uA.getBandanaCount());
     assertEquals("Bob", uA.getName());
+    assertEquals('D', uA.getLetterRepresentation());
+
     assertFalse(uA.isTagged());
     assertFalse(uA.isInJail());
     assertEquals(0, uA.challengesInvolvedIn());
     assertEquals(0, uA.challengesWon());
     assertEquals(0, uA.numberOfRewards());
 
-    Unit uB = new Runner("Rick", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("Rick", Globals.SIDE_LEFT);
     assertEquals(Globals.RUNNER_CALORIES, uB.getCalories());
     assertEquals(1, uB.getBandanaCount());
     assertEquals("Rick", uB.getName());
-    assertEquals(1, uB.getBandanaCount());
+    assertEquals('R', uB.getLetterRepresentation());
+  assertEquals(1, uB.getBandanaCount());
     assertFalse(uB.isTagged());
     assertFalse(uB.isInJail());
     assertEquals(0, uB.challengesInvolvedIn());
@@ -57,6 +59,7 @@ public class UnitTest {
     assertEquals(Globals.JAIL_FREER_CALORIES, uC.getCalories());
     assertEquals(1, uC.getBandanaCount());
     assertEquals("Hanger on", uC.getName());
+    assertEquals('J', uC.getLetterRepresentation());
     assertEquals(1, uC.getBandanaCount());
     assertFalse(uC.isTagged());
     assertFalse(uC.isInJail());
@@ -67,7 +70,7 @@ public class UnitTest {
 
   @Test
   public void testPosition() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
     uA.setPosition(1, 2);
     assertEquals(1, uA.getRow());
     assertEquals(2, uA.getColumn());
@@ -75,14 +78,14 @@ public class UnitTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testPositionThrowsException() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
     uA.setPosition(-1, 2);
   }
 
   @Test(expected = CannotChallengeException.class)
   public void testChallenge() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
-    Unit uB = new Runner("Bob", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("Bob", Globals.SIDE_RIGHT);
     Game g = new Game();
     g.addPiece(uA, 2, 2);
     g.addPiece(uB, 4, 2);
@@ -92,8 +95,8 @@ public class UnitTest {
   
   @Test(expected = CannotChallengeException.class)
   public void testChallenge2() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
-    Unit uB = new Runner("Bob", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("Bob", Globals.SIDE_RIGHT);
     Game g = new Game();
     g.addPiece(uA, 3, 4);
     g.addPiece(uB, 4, 2);
@@ -104,26 +107,26 @@ public class UnitTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testPositionThrowsExceptionColumn() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
     uA.setPosition(1, -1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testPositionThrowsExceptionRowsTooBig() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
     uA.setPosition(Globals.ROWS, 1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testPositionThrowsExceptionColumnsTooBig() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
     uA.setPosition(1, Globals.COLUMNS);
   }
 
   @Test
   public void testFightWhenThisCaloriesIsBetter() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
-    Unit uB = new Runner("Rick", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("Rick", Globals.SIDE_RIGHT);
     // A > B
     uA.setStrength(500);
     uB.setStrength(499);
@@ -138,8 +141,8 @@ public class UnitTest {
 
   @Test
   public void testFightWhenOthersCaloriesIsBetter() {
-    Unit uA = new Runner("Rick", Globals.SIDE_LEFT);
-    Unit uB = new Runner("Bob", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("Rick", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("Bob", Globals.SIDE_RIGHT);
     uA.setStrength(800);
     uB.setStrength(900);
 
@@ -152,17 +155,17 @@ public class UnitTest {
     assertEquals(900, uB.getCalories());
   }
 
-  @Test(expected = NotOnSameSideException.class)
+  @Test(expected = CannotChallengeException.class)
   public void testDifferentSides() {
-    Unit uA = new Runner("Bob", Globals.SIDE_LEFT);
-    Unit uB = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("Bob", Globals.SIDE_LEFT);
     uA.challenge(uB);
   }
 
-  @Test(expected = NotOnSameSideException.class)
+  @Test(expected = CannotChallengeException.class)
   public void testDifferentSidesWithADifferentReceiver() {
-    Unit uA = new Runner("Bob", Globals.SIDE_RIGHT);
-    Unit uB = new Runner("Bob", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("Bob", Globals.SIDE_RIGHT);
+    Unit uB = new Offensive("Bob", Globals.SIDE_RIGHT);
     uB.challenge(uA);
   }
 
@@ -176,7 +179,7 @@ public class UnitTest {
   @Test
   public void testOneUnitGetsAnothersFlag() {
     int intialCaloriesOfA = 5 * Globals.CALORIE_LOSS_PER_CHALLENGE;
-    Unit uA = new Runner("WinnerToBe", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("WinnerToBe", Globals.SIDE_RIGHT);
     int intialCaloriesOfB = 3 * Globals.CALORIE_LOSS_PER_CHALLENGE;
     Unit uB = new JailBreaker("WillEventuallyLose", Globals.SIDE_LEFT);
 
@@ -204,9 +207,9 @@ public class UnitTest {
   @Test
   public void testChallengeTakesBandana() {
     int intialCaloriesOfA = 5 * Globals.CALORIE_LOSS_PER_CHALLENGE;
-    Unit uA = new Runner("WinnerToBe", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("WinnerToBe", Globals.SIDE_RIGHT);
     int intialCaloriesOfB = 3 * Globals.CALORIE_LOSS_PER_CHALLENGE;
-    Unit uB = new Runner("WillEventuallyLose", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("WillEventuallyLose", Globals.SIDE_LEFT);
 
     uA.setStrength(intialCaloriesOfA);
     uB.setStrength(intialCaloriesOfB);
@@ -228,9 +231,9 @@ public class UnitTest {
   @Test
   public void testProfileUpdate() {
     int intialCaloriesOfA = 5 * Globals.CALORIE_LOSS_PER_CHALLENGE;
-    Unit uA = new Runner("WinnerToBe", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("WinnerToBe", Globals.SIDE_RIGHT);
     int intialCaloriesOfB = 2 * Globals.CALORIE_LOSS_PER_CHALLENGE;
-    Unit uB = new Runner("WillEventuallyLose", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("WillEventuallyLose", Globals.SIDE_LEFT);
 
     uA.setStrength(intialCaloriesOfA);
     uB.setStrength(intialCaloriesOfB);
@@ -247,8 +250,8 @@ public class UnitTest {
     int intialCaloriesOfA = 5 * Globals.CALORIE_LOSS_PER_CHALLENGE;
     int intialCaloriesOfB = 4 * Globals.CALORIE_LOSS_PER_CHALLENGE;
 
-    Unit uA = new Runner("WinnerToBe", Globals.SIDE_LEFT);
-    Unit uB = new Runner("WillEventuallyLose", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("WinnerToBe", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("WillEventuallyLose", Globals.SIDE_RIGHT);
 
     uA.setStrength(intialCaloriesOfA);
     uB.setStrength(intialCaloriesOfB);
@@ -263,10 +266,10 @@ public class UnitTest {
 
   @Test
   public void testIsTagged() {
-    Unit uA = new Runner("A", Globals.SIDE_RIGHT);
-    Unit second = new Runner("B", Globals.SIDE_LEFT);
-    Unit third = new Runner("C", Globals.SIDE_LEFT);
-    Unit fourth = new Runner("D", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("A", Globals.SIDE_RIGHT);
+    Unit second = new Offensive("B", Globals.SIDE_LEFT);
+    Unit third = new Offensive("C", Globals.SIDE_LEFT);
+    Unit fourth = new Offensive("D", Globals.SIDE_LEFT);
 
     uA.setStrength(6 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     second.setStrength(4 * Globals.CALORIE_LOSS_PER_CHALLENGE);
@@ -295,10 +298,10 @@ public class UnitTest {
 
   @Test
   public void testIsTaggedWhenChallengerIsReversedTheReceiverThatIs() {
-    Unit uA = new Runner("A", Globals.SIDE_LEFT);
-    Unit second = new Runner("B", Globals.SIDE_RIGHT);
-    Unit third = new Runner("C", Globals.SIDE_RIGHT);
-    Unit fourth = new Runner("D", Globals.SIDE_RIGHT);
+    Unit uA = new Offensive("A", Globals.SIDE_LEFT);
+    Unit second = new Offensive("B", Globals.SIDE_RIGHT);
+    Unit third = new Offensive("C", Globals.SIDE_RIGHT);
+    Unit fourth = new Offensive("D", Globals.SIDE_RIGHT);
 
     uA.setStrength(6 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     second.setStrength(4 * Globals.CALORIE_LOSS_PER_CHALLENGE);
@@ -328,8 +331,8 @@ public class UnitTest {
   @Test
   public void testWinsRecordedInTheProfile() {
     // A will always take a bandana
-    Unit uA = new Runner("A", Globals.SIDE_RIGHT);
-    Unit other = new Runner("B", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("A", Globals.SIDE_RIGHT);
+    Unit other = new Offensive("B", Globals.SIDE_LEFT);
 
     uA.setStrength(5 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     other.setStrength(3 * Globals.CALORIE_LOSS_PER_CHALLENGE);
@@ -343,7 +346,7 @@ public class UnitTest {
     assertEquals(2, uA.challengesWon());
     assertEquals(0, uA.getRewards().size());
 
-    Unit third = new Runner("C", Globals.SIDE_LEFT);
+    Unit third = new Offensive("C", Globals.SIDE_LEFT);
 
     third.setStrength(2 * Globals.CALORIE_LOSS_PER_CHALLENGE);
 
@@ -352,7 +355,7 @@ public class UnitTest {
     assertEquals(3, uA.challengesWon());
     assertEquals(0, uA.getRewards().size());
 
-    Unit fourth = new Runner("D", Globals.SIDE_LEFT);
+    Unit fourth = new Offensive("D", Globals.SIDE_LEFT);
 
     fourth.setStrength(6 * Globals.CALORIE_LOSS_PER_CHALLENGE);
 
@@ -380,14 +383,14 @@ public class UnitTest {
   @Test
   public void testProfileIsUpdated() {
     // A will always take a bandana at each challenge
-    Unit uA = new Runner("A", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("A", Globals.SIDE_LEFT);
     uA.setStrength(5 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     Unit other = null;
     for (int wins = 1; wins <= Globals.WINS_FOR_REWARD - 1; wins++) {
       // Each new B will always be tagged with only one challenge
       // because that will make B have half to calories of A3 *
       // Globals.CALORIE_LOSS_PER_CHALLENGE,
-      other = new Runner("B", Globals.SIDE_RIGHT);
+      other = new Offensive("B", Globals.SIDE_RIGHT);
       other.setStrength(3 * Globals.CALORIE_LOSS_PER_CHALLENGE);
 
       assertFalse(other.isTagged());
@@ -407,10 +410,10 @@ public class UnitTest {
   @Test
   public void testProfileGetsAllThreeAwards() {
 
-    Unit uA = new Runner("A", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("A", Globals.SIDE_LEFT);
     uA.setStrength(2000 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     for (int wins = 1; wins <= Globals.WINS_FOR_REWARD; wins++) {
-      Unit other = new Runner("B", Globals.SIDE_RIGHT);
+      Unit other = new Offensive("B", Globals.SIDE_RIGHT);
       other.setStrength(1000 * Globals.CALORIE_LOSS_PER_CHALLENGE);
       uA.challenge(other); // should win every time
     }
@@ -420,12 +423,12 @@ public class UnitTest {
 
   @Test
   public void testGetAward() {
-    Unit uA = new Runner("A", Globals.SIDE_LEFT);
+    Unit uA = new Offensive("A", Globals.SIDE_LEFT);
     uA.setStrength(2000 * Globals.CALORIE_LOSS_PER_CHALLENGE);
     Unit other = null;
     // Almost get a reward for
     for (int wins = 1; wins <= Globals.WINS_FOR_REWARD - 1; wins++) {
-      other = new Runner("B", Globals.SIDE_RIGHT);
+      other = new Offensive("B", Globals.SIDE_RIGHT);
       other.setStrength(1000 * Globals.CALORIE_LOSS_PER_CHALLENGE);
       uA.challenge(other); // should win every time
     }
@@ -437,7 +440,7 @@ public class UnitTest {
 
   @Test
   public void testMutators() {
-    Unit p = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit p = new Offensive("Bob", Globals.SIDE_LEFT);
     p.addToChallengesInvolvedIn();
     p.addToChallengesInvolvedIn();
     p.addToChallengesInvolvedIn();
@@ -450,7 +453,7 @@ public class UnitTest {
 
   @Test
   public void testChallengeCount() {
-    Unit p = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit p = new Offensive("Bob", Globals.SIDE_LEFT);
     for (int wins = 1; wins <= 8; wins++) {
       p.addToChallengesInvolvedIn();
     }
@@ -461,7 +464,7 @@ public class UnitTest {
 
   @Test
   public void testChallengesWonCount() {
-    Unit p = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit p = new Offensive("Bob", Globals.SIDE_LEFT);
     for (int wins = 1; wins <= Globals.WINS_FOR_REWARD - 1; wins++) {
       p.addToChallengesWon();
     }
@@ -477,7 +480,7 @@ public class UnitTest {
    */
   @Test
   public void testAwardGiven() {
-    Unit p = new Runner("Bob", Globals.SIDE_LEFT);
+    Unit p = new Offensive("Bob", Globals.SIDE_LEFT);
     for (int wins = 1; wins <= Globals.WINS_FOR_REWARD - 1; wins++) {
       p.addToChallengesWon();
     }

@@ -1,14 +1,14 @@
 package units;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.CannotChallengeException;
 import model.GamePiece;
 import model.Globals;
-import model.NotOnSameSideException;
 
-public abstract class Unit extends GamePiece {
+public abstract class Unit extends GamePiece implements Serializable{
 
   private int calories;
   private boolean tagged;
@@ -70,11 +70,11 @@ public abstract class Unit extends GamePiece {
    *          The unit being fought
    * @throws NotOnSameSideException
    */
-  public void challenge(Unit other) throws NotOnSameSideException {
+  public void challenge(Unit other) throws CannotChallengeException {
     if (this.side.equalsIgnoreCase(other.side))
-      throw new NotOnSameSideException();
+      throw new CannotChallengeException();
 
-    if (set(this, other) &&canNotChallangeinRange(this, other))
+    if (set(this, other) && canNotChallangeinRange(this, other))
       throw new CannotChallengeException();
 
     // One challenge mean two Units are involved

@@ -1,8 +1,10 @@
 package units;
 
+import java.io.Serializable;
+
 import model.Globals;
 
-public class Defender extends Unit {
+public class Defender extends Unit implements Serializable{
 
   public Defender(String name, String side) {
     super(name, Globals.DEFENDER_CALORIES, side);

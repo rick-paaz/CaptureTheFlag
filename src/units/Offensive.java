@@ -1,16 +1,17 @@
 package units;
 
+import java.io.Serializable;
+
 import model.Globals;
 
-public class Runner extends Unit {
-  
-  public Runner(String name, String side) {
+public class Offensive extends Unit implements Serializable {
+   
+  public Offensive(String name, String side) {
     super(name, Globals.RUNNER_CALORIES, side);
   }
 
   @Override
   public char getLetterRepresentation() {
-    // TODO Auto-generated method stub
     return 'R';
   }
 
