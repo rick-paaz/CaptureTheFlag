@@ -1,6 +1,5 @@
 package gamepieces;
 
-import game.CannotChallengeException;
 import game.Globals;
 
 import java.io.Serializable;
@@ -175,6 +174,10 @@ public abstract class Unit extends GamePiece implements Serializable{
   public String getSide() {
     return this.side;
   }
-
+  
+  public String toString() {
+    return this.getName() + ", " + getSide() + ", " + getCalories();
+  }
+  
   public abstract void chargeOneMoveCost();
 }

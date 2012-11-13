@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.*;
 import game.Game;
 import game.Globals;
+import game.Profile;
 import gamepieces.Defender;
 import gamepieces.GamePiece;
 import gamepieces.JailBreaker;
@@ -94,20 +95,14 @@ public class GameTest {
   @Test
   public void testGetPieceInChallenge2() {
     Game game = new Game();
-
     Unit human1 = new Offensive("h1", Globals.SIDE_LEFT);
     game.addPiece(human1, 4, 2);
-
     Unit p2 = new Defender("p2", Globals.SIDE_RIGHT);
     game.addPiece(p2, 3, 2);
-
     assertEquals(Globals.RUNNER_CALORIES, human1.getCalories());
-
     Unit attack = game.getUnit(4, 2);
     Unit defend = game.getUnit(3, 2);
-
     attack.challenge(defend);
-
     assertEquals(
         Globals.DEFENDER_CALORIES - Globals.CALORIE_LOSS_PER_CHALLENGE,
         p2.getCalories());
@@ -135,6 +130,6 @@ public class GameTest {
     assertEquals(3, human1.getColumn());
     assertEquals(2, p2.getRow());
     assertEquals(3, p2.getColumn());
-
   }
+
 }

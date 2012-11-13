@@ -20,5 +20,8 @@ public class Globals {
   
   public static final String SIDE_LEFT = "Left";
   public static final String SIDE_RIGHT = "Right";
+  
+  public static final String ProfileOneFileName = "profileOne";
+  public static final String ProfileTeoFileName = "profileTwo";
    
 }

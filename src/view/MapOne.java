@@ -8,6 +8,9 @@ package view;
  * 
  * Pressing the lower case 'a' key begins an animation
  */
+import game.Game;
+import game.Globals;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,41 +24,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class KeyListenerPanel extends JPanel {
+public class MapOne extends JPanel implements Observer {
 
-  public static void main(String[] args) {
-    JFrame frame = new JFrame();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(WIDTH + 30, HEIGHT + 50);
-    frame.setLocation(20, 20);
-    frame.setLayout(null);
-
-    KeyListenerPanel panel = new KeyListenerPanel();
-    panel.setSize(WIDTH + 2, HEIGHT + 2);
-    panel.setLocation(10, 10);
-
-    frame.getContentPane().add(panel);
-    frame.setVisible(true);
-  }
-
-  public final static int ROWS = 6;
-  public final static int COLS = 12;
-  public final static int TILE_SIZE = 57;
-
-  public final static int HEIGHT = TILE_SIZE * ROWS;
-  public final static int WIDTH = TILE_SIZE * COLS;
   public final static int OFFSET = 15; // move animation to right from upper left
 
   private BufferedImage sprites;
   private Rectangle2D.Double[][] recs;
+  private Game game;
 
-  public KeyListenerPanel() {
+  public MapOne(Game game) {
+    this.game = game;
     ListenToKeys listener = new ListenToKeys();
     this.addKeyListener(listener);
     try {
@@ -65,14 +50,14 @@ public class KeyListenerPanel extends JPanel {
     }
     setBackground(Color.GREEN);
     animatingFight = false;
-    this.setSize(WIDTH, HEIGHT);
+    this.setSize(Globals.WIDTH, Globals.HEIGHT);
     this.setFocusable(true);
 
-    recs = new Rectangle2D.Double[6][12];
-    for (int r = 0; r < 6; r++) {
-      for (int c = 0; c < 12; c++) {
-        recs[r][c] = new Rectangle2D.Double(c * TILE_SIZE, r * TILE_SIZE,
-            TILE_SIZE, TILE_SIZE);
+    recs = new Rectangle2D.Double[Globals.ROWS][Globals.COLUMNS];
+    for (int r = 0; r < Globals.ROWS; r++) {
+      for (int c = 0; c < Globals.COLUMNS; c++) {
+        recs[r][c] = new Rectangle2D.Double(c * Globals.TILE_SIZE, r
+            * Globals.TILE_SIZE, Globals.TILE_SIZE, Globals.TILE_SIZE);
       }
     }
 
@@ -100,12 +85,18 @@ public class KeyListenerPanel extends JPanel {
   private BufferedImage standingImage;
 
   @Override
+  public void update(Observable o, Object arg) {
+    game = (Game) o;
+    repaint();
+  }
+
+  @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
 
-    for (int r = 0; r < 6; r++) {
-      for (int c = 0; c < 12; c++) {
+    for (int r = 0; r < Globals.ROWS; r++) {
+      for (int c = 0; c < Globals.COLUMNS; c++) {
         g2.draw(recs[r][c]);
       }
     }
@@ -120,26 +111,25 @@ public class KeyListenerPanel extends JPanel {
       } else
         g2.drawImage(fightSubimages.get(tic), upperLeftX + 6, upperLeftY, null);
     } else
-      g2.drawImage(standingImage, TILE_SIZE * selectedCol, TILE_SIZE
-          * selectedRow, null);
+      g2.drawImage(standingImage, Globals.TILE_SIZE * selectedCol,
+          Globals.TILE_SIZE * selectedRow, null);
   }
 
   private void drawAttackPossibilities(Graphics2D g2) {
     int r = selectedRow;
     int c = selectedCol;
     g2.setColor(Color.CYAN);
-    if (r > 0 )
-      g2.fill(recs[r-1][c]);
-    if ( r < ROWS - 1)
-      g2.fill(recs[r+1][c]);
-   
-    if ( c < COLS - 1)
-      g2.fill(recs[r][c+1]);
- 
-    if ( c > 0)
-      g2.fill(recs[r][c-1]);
- 
-    
+    if (r > 0)
+      g2.fill(recs[r - 1][c]);
+    if (r < Globals.ROWS - 1)
+      g2.fill(recs[r + 1][c]);
+
+    if (c < Globals.COLUMNS - 1)
+      g2.fill(recs[r][c + 1]);
+
+    if (c > 0)
+      g2.fill(recs[r][c - 1]);
+
     g2.setColor(Color.BLACK);
   }
 
@@ -166,8 +156,8 @@ public class KeyListenerPanel extends JPanel {
   private void animateAnAttack() {
     timer = new Timer(ms_delay_in_timer, new AnimationListener());
     tic = 0;
-    upperLeftX = selectedCol * TILE_SIZE;
-    upperLeftY = selectedRow * TILE_SIZE;
+    upperLeftX = selectedCol * Globals.TILE_SIZE;
+    upperLeftY = selectedRow * Globals.TILE_SIZE;
     repaint();
     timer.start();
     animatingFight = true;
@@ -188,7 +178,7 @@ public class KeyListenerPanel extends JPanel {
 
       if (keyCode == KeyEvent.VK_DOWN) {
         System.out.println("Down arrow");
-        if (selectedRow < ROWS - 1)
+        if (selectedRow < Globals.ROWS - 1)
           selectedRow += 1;
       }
 
@@ -200,7 +190,7 @@ public class KeyListenerPanel extends JPanel {
 
       if (keyCode == KeyEvent.VK_RIGHT) {
         System.out.println("Right arrow");
-        if (selectedCol < COLS - 1)
+        if (selectedCol < Globals.COLUMNS - 1)
           selectedCol += 1;
       }
 
@@ -222,4 +212,5 @@ public class KeyListenerPanel extends JPanel {
     }
 
   }
+
 }

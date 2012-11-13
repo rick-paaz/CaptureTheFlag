@@ -8,9 +8,7 @@ import gamepieces.Unit;
 
 import java.util.List;
 
-
 import org.junit.Test;
-
 
 public class ProfileTest {
 
@@ -19,7 +17,7 @@ public class ProfileTest {
     // When the 2nd argument is true, we get a default list of untried
     // units with initial default values. When false, the previous 
     // version of this Profile is read form a serialized object
-    Profile p = new Profile("Rick's First", "profileOne", true);
+    Profile p = new Profile("profileOne");
     // Should have four default units;
     // Use this as a bootstrap or perhaps an initial list
     List<Unit> units = p.getUnits();
@@ -30,7 +28,7 @@ public class ProfileTest {
 
   @Test
   public void testProfileWhenReadingFromFile() {
-    Profile p = new Profile("Rick's First", "profileOne", true);
+    Profile p = new Profile("profileOne");
     List<Unit> units = p.getUnits();
     for (int reward = 1; reward <= Globals.WINS_FOR_REWARD - 1; reward++)
       units.get(0).addToChallengesWon();
@@ -50,12 +48,12 @@ public class ProfileTest {
         * Globals.RUNNER__MOVE_COST);
 
     p.saveThisPofile();
-   }
-  
+  }
+
   @Test
   public void testPersistentProfile() {
     // See if the changes above were saved and then reread
-    Profile afterSaveAndRead = new Profile("Rick's First", "profileOne", false);
+    Profile afterSaveAndRead = new Profile("profileOne");
     List<Unit> units = afterSaveAndRead.getUnits();
     assertEquals(units.get(0).getCalories(), Globals.RUNNER_CALORIES - 3
         * Globals.RUNNER__MOVE_COST);

@@ -13,9 +13,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import game.CannotChallengeException;
 import game.Game;
 import game.Globals;
+import gamepieces.CannotChallengeException;
 import gamepieces.Defender;
 import gamepieces.JailBreaker;
 import gamepieces.Offensive;

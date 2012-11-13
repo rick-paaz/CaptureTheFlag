@@ -1,8 +1,5 @@
 package game;
 
-import gamepieces.Defender;
-import gamepieces.JailBreaker;
-import gamepieces.Offensive;
 import gamepieces.Unit;
 
 import java.io.FileInputStream;
@@ -16,7 +13,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
 public class Profile implements Serializable {
 
   private LinkedList<Unit> units;
@@ -25,29 +21,9 @@ public class Profile implements Serializable {
   private String owner;
   public String fileName;
 
-  public Profile(String owner, String fileName, boolean createDefaultUnits) {
+  public Profile(String fileName) {
     this.fileName = fileName;
-    this.owner = owner;
-    if (createDefaultUnits) {
-      gamesPlayed = 0;
-      gamesWon = 0;
-      createDefaultUnitList();
-    } else {
-      usePersistentProfile();
-    }
-  }
-
-  private void createDefaultUnitList() {
-    Unit a = new Offensive("Runner 1", Globals.SIDE_LEFT);
-    Unit b = new Offensive("Runner 2", Globals.SIDE_LEFT);
-    Unit c = new Defender("Defender", Globals.SIDE_LEFT);
-    Unit d = new JailBreaker("Free Tagged Players", Globals.SIDE_LEFT);
-
-    units = new LinkedList<Unit>();
-    units.add(a);
-    units.add(b);
-    units.add(c);
-    units.add(d);
+    usePersistentProfile();
   }
 
   public void saveThisPofile() {
@@ -97,5 +73,12 @@ public class Profile implements Serializable {
 
   public String getName() {
     return owner;
+  }
+
+  public void setUnits(Game g) {
+    for (int piece = 0; piece < units.size(); piece++) {
+      Unit unit = units.get(piece);
+      g.addPiece(unit, unit.getRow(), unit.getColumn());
+    }
   }
 }

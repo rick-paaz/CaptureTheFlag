@@ -1,4 +1,4 @@
-package game;
+package gamepieces;
 
 public class CannotChallengeException extends RuntimeException {
   public CannotChallengeException() {

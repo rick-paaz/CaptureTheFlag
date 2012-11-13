@@ -5,14 +5,14 @@ import gamepieces.Unit;
 
 import java.util.Observable;
 
-
 public class Game extends Observable {
 
   private GamePiece[][] field;
 
   public Game() {
     field = new GamePiece[Globals.ROWS][Globals.COLUMNS];
-  }
+
+ }
 
   // Also update the gamePiece location
   public void moveUnit(int fromRow, int fromColumn, int toRow, int toColumn) {

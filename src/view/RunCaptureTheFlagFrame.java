@@ -2,12 +2,12 @@ package view;
 
 import game.Game;
 import game.Globals;
+import game.Profile;
 
 import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 
 public class RunCaptureTheFlagFrame extends JFrame {
 
@@ -16,7 +16,7 @@ public class RunCaptureTheFlagFrame extends JFrame {
     frame.setVisible(true);
   }
 
-  private PlayingFieldPanel playFieldPanel;
+  private MapOne playFieldPanel;
   private Game game;
 
   public RunCaptureTheFlagFrame() {
@@ -26,20 +26,21 @@ public class RunCaptureTheFlagFrame extends JFrame {
     setTitle("Capture the Flag");
 
     setLayout(null);
-    game = new Game();
     
-    playFieldPanel = new PlayingFieldPanel(game);
+    // Initialize a game with two persistent Profiles
+    game = new Game();
+    Profile p1 = new Profile("leftSide");
+    Profile p2 = new Profile("rightSide");
+
+    p1.setUnits(game);
+    p2.setUnits(game);
+
+    playFieldPanel = new MapOne(game);
     playFieldPanel.setSize(Globals.WIDTH, Globals.HEIGHT);
     playFieldPanel.setLocation(10, 13);
     // setLayout(null); 
-
-    JPanel p = new JPanel();
-    p.setBackground(Color.RED);
-    p.setSize(20, 20);
-    p.setLocation(45, 37);
-    add(p);
-
-    playFieldPanel = new PlayingFieldPanel(game);
+ 
+    playFieldPanel = new MapOne(game);
     playFieldPanel.setSize(500, 300);
     playFieldPanel.setLocation(5, 3);
 
