@@ -6,7 +6,7 @@ package view;
  * A new rectangle will be filled for each arrow click (unless it
  * would cause an exit from the board. 
  * 
- * Pressing the lower case a begins an animation
+ * Pressing the lower case 'a' key begins an animation
  */
 import java.awt.Color;
 import java.awt.Graphics;

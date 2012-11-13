@@ -1,4 +1,4 @@
-package items;
+package gamepieces;
 
 public class BearTrap extends Item {
 

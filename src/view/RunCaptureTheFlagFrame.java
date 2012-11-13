@@ -1,12 +1,13 @@
 package view;
 
+import game.Game;
+import game.Globals;
+
 import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import model.Game;
-import model.Globals;
 
 public class RunCaptureTheFlagFrame extends JFrame {
 

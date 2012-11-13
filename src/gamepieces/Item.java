@@ -1,9 +1,8 @@
-package items;
+package gamepieces;
 
 /**
  * Still need obstacles, places other times can not enter
  */
-import gamepieces.GamePiece;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

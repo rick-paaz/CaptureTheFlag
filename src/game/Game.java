@@ -1,4 +1,4 @@
-package model;
+package game;
 
 import gamepieces.GamePiece;
 import gamepieces.Unit;

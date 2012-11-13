@@ -1,8 +1,9 @@
 package gamepieces;
 
+import game.Globals;
+
 import java.io.Serializable;
 
-import model.Globals;
 
 public class Offensive extends Unit implements Serializable {
    

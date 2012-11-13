@@ -1,5 +1,8 @@
 package view;
 
+import game.Game;
+import game.Globals;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,8 +21,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import model.Game;
-import model.Globals;
 
 public class PlayingFieldPanel extends JPanel implements Observer {
 

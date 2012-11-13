@@ -2,12 +2,12 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import game.Globals;
+import game.Profile;
 import gamepieces.Unit;
 
 import java.util.List;
 
-import model.Globals;
-import model.Profile;
 
 import org.junit.Test;
 
