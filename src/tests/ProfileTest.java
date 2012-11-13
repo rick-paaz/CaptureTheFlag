@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import gamepieces.Unit;
+
 import java.util.List;
 
 import model.Globals;
@@ -9,7 +11,6 @@ import model.Profile;
 
 import org.junit.Test;
 
-import units.Unit;
 
 public class ProfileTest {
 
@@ -49,15 +50,19 @@ public class ProfileTest {
         * Globals.RUNNER__MOVE_COST);
 
     p.saveThisPofile();
-
+   }
+  
+  @Test
+  public void testPersistentProfile() {
     // See if the changes above were saved and then reread
     Profile afterSaveAndRead = new Profile("Rick's First", "profileOne", false);
-    units = afterSaveAndRead.getUnits();
+    List<Unit> units = afterSaveAndRead.getUnits();
     assertEquals(units.get(0).getCalories(), Globals.RUNNER_CALORIES - 3
         * Globals.RUNNER__MOVE_COST);
     assertEquals(1, units.get(0).getRewards().size());
     assertEquals(10, units.get(0).challengesWon());
     assertEquals("Rick's First", afterSaveAndRead.getName());
     assertEquals(-1.0, afterSaveAndRead.getWinPercentage(), 1e-12);
+
   }
 }

@@ -1,8 +1,10 @@
 package model;
 
+import gamepieces.GamePiece;
+import gamepieces.Unit;
+
 import java.util.Observable;
 
-import units.Unit;
 
 public class Game extends Observable {
 

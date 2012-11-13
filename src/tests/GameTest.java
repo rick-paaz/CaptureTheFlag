@@ -1,16 +1,16 @@
 package tests;
 
 import static org.junit.Assert.*;
+import gamepieces.Defender;
+import gamepieces.GamePiece;
+import gamepieces.JailBreaker;
+import gamepieces.Offensive;
+import gamepieces.Unit;
 import model.Game;
-import model.GamePiece;
 import model.Globals;
 
 import org.junit.Test;
 
-import units.Defender;
-import units.JailBreaker;
-import units.Offensive;
-import units.Unit;
 
 public class GameTest {
 

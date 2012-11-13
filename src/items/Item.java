@@ -3,13 +3,15 @@ package items;
 /**
  * Still need obstacles, places other times can not enter
  */
+import gamepieces.GamePiece;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import model.GamePiece;
+
 
 public abstract class Item extends GamePiece {
 

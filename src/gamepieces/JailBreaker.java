@@ -1,4 +1,4 @@
-package units;
+package gamepieces;
 
 import java.io.Serializable;
 

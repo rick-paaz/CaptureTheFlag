@@ -1,11 +1,10 @@
-package units;
+package gamepieces;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.CannotChallengeException;
-import model.GamePiece;
 import model.Globals;
 
 public abstract class Unit extends GamePiece implements Serializable{

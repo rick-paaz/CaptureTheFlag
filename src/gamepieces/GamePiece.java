@@ -1,6 +1,10 @@
-package model;
+package gamepieces;
 
-public abstract class GamePiece {
+import java.io.Serializable;
+
+import model.Globals;
+
+public abstract class GamePiece implements Serializable {
 
   private String name;
   protected int row, column;

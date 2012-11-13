@@ -13,6 +13,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import gamepieces.Defender;
+import gamepieces.JailBreaker;
+import gamepieces.Offensive;
+import gamepieces.Reward;
+import gamepieces.Unit;
+
 import java.util.List;
 
 import model.CannotChallengeException;
@@ -21,11 +27,6 @@ import model.Globals;
 
 import org.junit.Test;
 
-import units.Defender;
-import units.JailBreaker;
-import units.Reward;
-import units.Offensive;
-import units.Unit;
 
 public class UnitTest {
 

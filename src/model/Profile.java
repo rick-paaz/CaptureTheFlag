@@ -1,5 +1,10 @@
 package model;
 
+import gamepieces.Defender;
+import gamepieces.JailBreaker;
+import gamepieces.Offensive;
+import gamepieces.Unit;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,14 +16,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import units.Defender;
-import units.JailBreaker;
-import units.Offensive;
-import units.Unit;
 
 public class Profile implements Serializable {
 
-  private List<Unit> units;
+  private LinkedList<Unit> units;
   private int gamesPlayed;
   private int gamesWon;
   private String owner;
@@ -54,9 +55,9 @@ public class Profile implements Serializable {
       FileOutputStream outFile = new FileOutputStream("serializedObjects/"
           + fileName);
       ObjectOutputStream outputStream = new ObjectOutputStream(outFile);
+      outputStream.writeObject(units);
       outputStream.writeObject(gamesPlayed);
       outputStream.writeObject(gamesWon);
-      outputStream.writeObject(units);
       // Do NOT forget to close the output stream!
       outputStream.close();
     } catch (IOException ioe) {
@@ -74,20 +75,17 @@ public class Profile implements Serializable {
           + fileName);
       ObjectInputStream inputStream = new ObjectInputStream(inFile);
 
+      units = (LinkedList<Unit>) inputStream.readObject();
       gamesPlayed = (Integer) inputStream.readObject();
       gamesWon = (Integer) inputStream.readObject();
-      units = (List<Unit>) inputStream.readObject();
       inputStream.close();
     } catch (Exception e) {
       e.printStackTrace();
-      String message = "Error reading serialized objects\n";
-      JOptionPane.showMessageDialog(null, message);
     }
   }
 
   public List<Unit> getUnits() {
     return units;
-
   }
 
   public double getWinPercentage() {
