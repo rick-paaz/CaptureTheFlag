@@ -14,6 +14,7 @@ public class Game extends Observable {
 
   private void foo() {
     String meaningless = "Remove me";
+    String meaningless2 = "Add this";
   }
   
   private GamePiece[][] field;
