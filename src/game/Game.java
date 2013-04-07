@@ -4,7 +4,7 @@ import gamepieces.GamePiece;
 import gamepieces.Unit;
 
 import java.util.Observable;
-
+  
 public class Game extends Observable {
 
   private GamePiece[][] field;

@@ -10,8 +10,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-
-
 public abstract class Item extends GamePiece {
 
   protected BufferedImage myImage;

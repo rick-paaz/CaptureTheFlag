@@ -16,7 +16,8 @@ public abstract class Unit extends GamePiece implements Serializable{
   // private Profile profile;
   private int challenges;
   private List<Reward> rewards;
-  private int challengesWon;
+  private List<Item> items;
+   private int challengesWon;
   private String side;
 
   /**
