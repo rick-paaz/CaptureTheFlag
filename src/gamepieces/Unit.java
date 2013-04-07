@@ -6,8 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public abstract class Unit extends GamePiece implements Serializable{
+public abstract class Unit extends GamePiece implements Serializable {
 
   private int calories;
   private boolean tagged;
@@ -17,7 +16,7 @@ public abstract class Unit extends GamePiece implements Serializable{
   private int challenges;
   private List<Reward> rewards;
   private List<Item> items;
-   private int challengesWon;
+  private int challengesWon;
   private String side;
 
   /**
@@ -175,10 +174,22 @@ public abstract class Unit extends GamePiece implements Serializable{
   public String getSide() {
     return this.side;
   }
-  
+
   public String toString() {
     return this.getName() + ", " + getSide() + ", " + getCalories();
   }
-  
+
   public abstract void chargeOneMoveCost();
+
+  public List<Item> getItems() {
+    return items;
+  }
+
+  public void addItem(Item item) {
+    items.add(item);
+  }
+  
+  public void removeItem(Item item) {
+    items.remove(item);
+  }
 }

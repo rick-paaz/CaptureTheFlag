@@ -4,17 +4,24 @@ import gamepieces.GamePiece;
 import gamepieces.Unit;
 
 import java.util.Observable;
-  
+
 // Added a comment 
 
 public class Game extends Observable {
 
+  // Add an instance variable
+  int garbage;
+
+  private void foo() {
+    String meaningless = "Remove me";
+  }
+  
   private GamePiece[][] field;
 
   public Game() {
     field = new GamePiece[Globals.ROWS][Globals.COLUMNS];
- }
-  
+  }
+
   // Also update the gamePiece location
   public void moveUnit(int fromRow, int fromColumn, int toRow, int toColumn) {
     if (outOfRange(fromRow, fromColumn) || outOfRange(toRow, toColumn))
