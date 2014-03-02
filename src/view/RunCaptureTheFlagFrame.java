@@ -32,7 +32,7 @@ public class RunCaptureTheFlagFrame extends JFrame {
     Profile p1 = new Profile("leftSide");
     Profile p2 = new Profile("rightSide");
 
-   //  I commented this failing searilization, add and committed
+   //  I commented this failing serilization, add and committed
     // checked out two branches and found the changes are gone and
     // now replace with this
 //    p1.setUnits(game);
