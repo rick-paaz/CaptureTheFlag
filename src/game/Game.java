@@ -6,7 +6,8 @@ import gamepieces.Unit;
 import java.util.Observable;
 
 // Added a comment 
-
+// Add another comment on 2-March
+//
 public class Game extends Observable {
 
   // Add an instance variable
@@ -16,6 +17,11 @@ public class Game extends Observable {
     String meaningless = "Remove me";
     String meaningless2 = "Add this";
   }
+
+   private void addAMethodOnBranchAddComments() {
+      // TODO?
+   } 
+
   
   private GamePiece[][] field;
 
