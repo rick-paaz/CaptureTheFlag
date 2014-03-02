@@ -20,8 +20,8 @@ public class RunCaptureTheFlagFrame extends JFrame {
   private Game game;
 
   public RunCaptureTheFlagFrame() {
-    setSize(Globals.WIDTH + 200, Globals.HEIGHT + 200);
-    setLocation(10, 10);
+    setSize(Globals.WIDTH + 100, Globals.HEIGHT + 100);
+    setLocation(15, 15);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setTitle("Capture the Flag");
 
