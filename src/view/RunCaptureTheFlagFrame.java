@@ -32,8 +32,11 @@ public class RunCaptureTheFlagFrame extends JFrame {
     Profile p1 = new Profile("leftSide");
     Profile p2 = new Profile("rightSide");
 
-    p1.setUnits(game);
-    p2.setUnits(game);
+   //  I commented this failing searilization, add and committed
+    // checked out two branches and found the changes are gone and
+    // now replace with this
+//    p1.setUnits(game);
+//    p2.setUnits(game);
 
     playFieldPanel = new MapOne(game);
     playFieldPanel.setSize(Globals.WIDTH, Globals.HEIGHT);
