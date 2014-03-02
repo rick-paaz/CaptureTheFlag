@@ -43,7 +43,9 @@ public class RunCaptureTheFlagFrame extends JFrame {
     // setLayout(null); 
 
     playFieldPanel = new MapOne(game);
-    playFieldPanel.setSize(500, 300);
+  //  playFieldPanel.setSize(500, 300);
+    playFieldPanel.setSize(400, 240); 
+    
     playFieldPanel.setLocation(5, 3);
 
     game.addObserver(playFieldPanel);
