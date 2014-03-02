@@ -46,7 +46,7 @@ public class Profile implements Serializable {
   @SuppressWarnings("unchecked")
   public void usePersistentProfile() {
     try {
-      // Read the BankAccountCollection object from it disk file
+      // Read the object from it disk file
       FileInputStream inFile = new FileInputStream("serializedObjects/"
           + fileName);
       ObjectInputStream inputStream = new ObjectInputStream(inFile);
@@ -70,7 +70,7 @@ public class Profile implements Serializable {
     else
       return gamesWon / gamesPlayed;
   }
-
+  
   public String getName() {
     return owner;
   }
