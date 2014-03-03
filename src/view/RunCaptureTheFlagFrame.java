@@ -16,7 +16,8 @@ public class RunCaptureTheFlagFrame extends JFrame {
   private Game game;
 
   public RunCaptureTheFlagFrame() {
-    setSize(Globals.WIDTH + 100, Globals.HEIGHT + 100);
+//    setSize(Globals.WIDTH + 100, Globals.HEIGHT + 100);
+    setSize(Globals.WIDTH +30, Globals.HEIGHT + 5);
     setLocation(15, 15);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setTitle("Capture the Flag");
@@ -39,9 +40,9 @@ public class RunCaptureTheFlagFrame extends JFrame {
     // setLayout(null); 
 
     playFieldPanel = new MapOne(game);
-  //  playFieldPanel.setSize(500, 300);
-    playFieldPanel.setSize(400, 240); 
-    
+    playFieldPanel.setSize(500, 300);
+    playFieldPanel.setSize(404, 240);
+
     playFieldPanel.setLocation(5, 3);
 
     game.addObserver(playFieldPanel);

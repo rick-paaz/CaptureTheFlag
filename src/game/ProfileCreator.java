@@ -35,5 +35,4 @@ public class ProfileCreator {
       JOptionPane.showMessageDialog(null, message);
     }
   }
-
 }

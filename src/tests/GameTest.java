@@ -10,11 +10,9 @@ import gamepieces.Offensive;
 import gamepieces.Unit;
 
 import org.junit.Test;
-
-
 public class GameTest {
-
-  @Test
+  
+    @Test
   public void testGameSetupAndMakeOneChallenge() {
     Game game = new Game();
     GamePiece human1 = new Offensive("h1", Globals.SIDE_LEFT);

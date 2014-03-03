@@ -1,14 +1,5 @@
 package tests;
 
-// actual begin: 8:30  Fri                                                                                         
-// actual end: 11:00
-
-//actual begin: 1:00 pm Sat                                                                                           
-//actual end: 4:00
-
-// begin 7:45 Sunday
-// end
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,9 +15,7 @@ import gamepieces.Unit;
 
 import java.util.List;
 
-
 import org.junit.Test;
-
 
 public class UnitTest {
 
@@ -49,7 +38,7 @@ public class UnitTest {
     assertEquals(1, uB.getBandanaCount());
     assertEquals("Rick", uB.getName());
     assertEquals('R', uB.getLetterRepresentation());
-  assertEquals(1, uB.getBandanaCount());
+    assertEquals(1, uB.getBandanaCount());
     assertFalse(uB.isTagged());
     assertFalse(uB.isInJail());
     assertEquals(0, uB.challengesInvolvedIn());
@@ -90,21 +79,19 @@ public class UnitTest {
     Game g = new Game();
     g.addPiece(uA, 2, 2);
     g.addPiece(uB, 4, 2);
-    
-    uA.challenge(uB);
-  }
-  
-  @Test(expected = CannotChallengeException.class)
-  public void testChallenge2() {
-    Unit uA = new Offensive("Bob", Globals.SIDE_LEFT);
-    Unit uB = new Offensive("Bob", Globals.SIDE_RIGHT);
-    Game g = new Game();
-    g.addPiece(uA, 3, 4);
-    g.addPiece(uB, 4, 2);
-    
+
     uA.challenge(uB);
   }
 
+  @Test(expected = CannotChallengeException.class)
+  public void testChallenge2() {
+    Unit uA = new Offensive("Kim", Globals.SIDE_LEFT);
+    Unit uB = new Offensive("Chris", Globals.SIDE_RIGHT);
+    Game g = new Game();
+    g.addPiece(uA, 3, 4);
+    g.addPiece(uB, 4, 2);
+    uA.challenge(uB); 
+  }
 
   @Test(expected = IllegalArgumentException.class)
   public void testPositionThrowsExceptionColumn() {
