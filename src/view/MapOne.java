@@ -37,6 +37,7 @@ public class MapOne extends JPanel implements Observer {
 
   private BufferedImage sprites;
   private Rectangle2D.Double[][] recs;
+  @SuppressWarnings("unused")
   private Game game;
 
   public MapOne(Game game) {

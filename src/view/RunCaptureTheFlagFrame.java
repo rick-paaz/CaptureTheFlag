@@ -2,12 +2,8 @@ package view;
 
 import game.Game;
 import game.Globals;
-import game.Profile;
-
-import java.awt.Color;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class RunCaptureTheFlagFrame extends JFrame {
 
@@ -29,8 +25,8 @@ public class RunCaptureTheFlagFrame extends JFrame {
 
     // Initialize a game with two persistent Profiles
     game = new Game();
-    Profile p1 = new Profile("leftSide");
-    Profile p2 = new Profile("rightSide");
+    // Profile p1 = new Profile("leftSide");
+    // Profile p2 = new Profile("rightSide");
 
     // 2-March-14 This attempt to read from the serialized object results
     // in a null point exception.  Get rid of the Profile type perhaps?
