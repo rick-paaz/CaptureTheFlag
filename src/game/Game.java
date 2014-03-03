@@ -5,9 +5,6 @@ import gamepieces.Unit;
 
 import java.util.Observable;
 
-// Added a comment 
-// Add another comment on 2-March
-//
 public class Game extends Observable {
   private GamePiece[][] field;
 
