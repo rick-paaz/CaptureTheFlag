@@ -1,9 +1,8 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import game.Game;
 import game.Globals;
-import game.Profile;
 import gamepieces.Defender;
 import gamepieces.GamePiece;
 import gamepieces.JailBreaker;
@@ -131,5 +130,4 @@ public class GameTest {
     assertEquals(2, p2.getRow());
     assertEquals(3, p2.getColumn());
   }
-
 }

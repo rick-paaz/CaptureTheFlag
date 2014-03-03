@@ -9,20 +9,6 @@ import java.util.Observable;
 // Add another comment on 2-March
 //
 public class Game extends Observable {
-
-  // Add an instance variable
-  int garbage;
-
-  private void foo() {
-    String meaningless = "Remove me";
-    String meaningless2 = "Add this";
-  }
-
-   private void addAMethodOnBranchAddComments() {
-      // TODO?
-   } 
-
-  
   private GamePiece[][] field;
 
   public Game() {
