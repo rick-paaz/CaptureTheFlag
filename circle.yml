@@ -1,1 +1,4 @@
 	
+database:
+  override:
+    - mysql -u ubuntu circle_test < my-database-setup.sql
