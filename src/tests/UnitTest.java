@@ -29,13 +29,17 @@ public class UnitTest {
 
     assertFalse(uA.isTagged());
     assertFalse(uA.isInJail());
+    
     // assertEquals(0, uA.challengesInvolvedIn());
     // assertEquals(0, uA.challengesWon());
     // These two tests should fail
-    //  1 shoulf be 0
+    
     assertEquals(1, uA.challengesInvolvedIn());
     assertEquals(1, uA.numberOfRewards());
-
+    assertEquals(-1, uA.challengesInvolvedIn());
+    assertEquals(-1, uA.numberOfRewards());
+    // Remove the previous four lines 
+    
     Unit uB = new Offensive("Rick", Globals.SIDE_LEFT);
     assertEquals(Globals.RUNNER_CALORIES, uB.getCalories());
     assertEquals(1, uB.getBandanaCount());
