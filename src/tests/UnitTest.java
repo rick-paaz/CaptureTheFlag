@@ -29,10 +29,10 @@ public class UnitTest {
 
     assertFalse(uA.isTagged());
     assertFalse(uA.isInJail());
-    // 
-    //assertEquals(0, uA.challengesInvolvedIn());
+    // assertEquals(0, uA.challengesInvolvedIn());
     // assertEquals(0, uA.challengesWon());
-    // These two test should fail
+    // These two tests should fail
+    //  1 shoulf be 0
     assertEquals(1, uA.challengesInvolvedIn());
     assertEquals(1, uA.numberOfRewards());
 
